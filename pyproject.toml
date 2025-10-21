@@ -1,0 +1,104 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "animatediff"
+version = "0.1.0"
+description = "AnimateDiff: Animate Your Personalized Text-to-Image Diffusion Models without Specific Tuning"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+authors = [
+    {name = "AnimateDiff Team"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "torch==2.3.1",
+    "torchvision==0.18.1",
+    "diffusers==0.11.1",
+    "transformers==4.25.1",
+    "xformers==0.0.27",
+    "imageio==2.27.0",
+    "imageio-ffmpeg==0.4.9",
+    "decord==0.6.0",
+    "omegaconf==2.3.0",
+    "gradio==3.36.1",
+    "safetensors",
+    "einops",
+    "wandb",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+]
+training = [
+    "accelerate",
+    "tensorboard",
+]
+
+[project.urls]
+Homepage = "https://github.com/guoyww/AnimateDiff"
+Repository = "https://github.com/guoyww/AnimateDiff"
+Documentation = "https://github.com/guoyww/AnimateDiff"
+"Bug Tracker" = "https://github.com/guoyww/AnimateDiff/issues"
+
+[project.scripts]
+animatediff-train = "train:main"
+animatediff-app = "app:main"
+
+[tool.setuptools]
+packages = ["animatediff"]
+
+[tool.setuptools.package-data]
+animatediff = ["**/*.yaml", "**/*.json"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
